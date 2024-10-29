@@ -1,0 +1,71 @@
+#include <DHT.h>
+
+// Definições dos pinos
+const int dhtPin = 15;      // Pino de dados do DHT22
+const int trigPin = 13;    // Pino de disparo do HC-SR04
+const int echoPin = 12;    // Pino de eco do HC-SR04
+const int pirPin = 14;     // Pino de saída do PIR
+const int ldrPin = A0;     // Pino de leitura do LDR
+const int gndPin = 2;      // Pino configurado como GND
+
+// Definições do DHT22
+DHT dht(dhtPin, DHT22);
+
+void setup() {
+  Serial.begin(115200);
+  dht.begin();
+  pinMode(trigPin, OUTPUT);
+  pinMode(echoPin, INPUT);
+  pinMode(pirPin, INPUT);
+  pinMode(ldrPin, INPUT);
+  pinMode(gndPin, OUTPUT);
+  digitalWrite(gndPin, LOW); // Configura pino como GND
+}
+
+void loop() {
+  // Leitura do DHT22
+  float humidity = dht.readHumidity();
+  float temperature = dht.readTemperature();
+
+  // Leitura do HC-SR04
+  float distance = getDistance();
+
+  // Leitura do PIR
+  bool motion = digitalRead(pirPin);
+
+  // Leitura do LDR
+  int valorLDR = analogRead(ldrPin);
+
+  // Verificação de erros
+  if (isnan(humidity) || isnan(temperature)) {
+    Serial.println("Falha na leitura do DHT22!");
+    return;
+  }
+
+  // Impressão dos resultados
+  Serial.print("Umidade: ");
+  Serial.print(humidity);
+  Serial.print(" %\t");
+  Serial.print("Temperatura: ");
+  Serial.print(temperature);
+  Serial.print(" °C\t");
+  Serial.print("Distância: ");
+  Serial.print(distance);
+  Serial.print(" cm\t");
+  Serial.print("Movimento: ");
+  Serial.print(motion ? "Sim" : "Não");
+  Serial.print("\t");
+  Serial.print("Luminosidade: ");
+  Serial.println(valorLDR);
+
+  delay(2000);
+}
+
+// Função para calcular a distância com o HC-SR04
+float getDistance() {
+  digitalWrite(trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite(trigPin, LOW);
+  long duration = pulseIn(echoPin, HIGH);
+  return duration * 0.034 / 2;
+}
