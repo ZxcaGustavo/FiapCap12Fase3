@@ -1,0 +1,5 @@
+o sensor em esp32 teve 4 sensores,quando foi terminado houve alguns testes:
+Umidade: 40.00 %	Temperatura: 24.00 °C	Distância: 399.99 cm	Movimento: Não	Luminosidade: 886
+essa foi o primeiro resultado
+a umidade ficou em 40% em todos assim como a repetição da temperatura e a distância e o movimento,
+já a luminosidade houve bastante variação sendo o menor valor de 886 e o maior de 1444
