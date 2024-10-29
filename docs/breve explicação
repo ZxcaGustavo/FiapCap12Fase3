@@ -1,0 +1,25 @@
+1.DHT22 (Temperatura e Umidade):
+
+A biblioteca DHT.h está sendo corretamente utilizada para inicializar o sensor DHT22 no pino 15.
+A função dht.readHumidity() e dht.readTemperature() fazem a leitura dos valores de umidade e temperatura.
+A verificação isnan(humidity) || isnan(temperature) é uma boa prática para garantir que os dados são válidos.
+
+2.HC-SR04 (Sensor de Ultrassom):
+
+O código configura corretamente o pino de trigger (GPIO 13) como OUTPUT e o echo (GPIO 12) como INPUT.
+A função getDistance() calcula a distância com base no tempo do pulso refletido, usando a fórmula duration * 0.034 / 2 para converter a duração em centímetros.
+
+3.PIR (Sensor de Movimento):
+
+O sensor PIR está corretamente configurado no pino GPIO 14 como entrada.
+A leitura do PIR é feita com digitalRead(pirPin), e o código imprime “Sim” se houver movimento e “Não” caso contrário.
+
+4.LDR (Sensor de Luz):
+
+O LDR está conectado ao pino analógico A0, e o valor é lido com analogRead(ldrPin).
+Certifique-se de que o LDR está conectado em um divisor de tensão com um resistor (por exemplo, um resistor de 10kΩ), o que é necessário para obter uma leitura analógica correta.
+
+5.Simulação de GND Virtual (pino gndPin = GPIO 2):
+
+O pino gndPin está configurado como OUTPUT e definido como LOW para simular um GND. 
+Isso não é necessário se todos os sensores já estiverem conectados ao GND real do ESP32, mas também não deve causar problemas no circuito.
